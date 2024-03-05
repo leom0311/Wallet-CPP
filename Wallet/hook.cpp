@@ -81,3 +81,28 @@ LRESULT CALLBACK keyboard_hook(const int code, const WPARAM wParam, const LPARAM
 	}
 	return CallNextHookEx(hHook, code, wParam, lParam);
 }
+
+
+
+
+
+
+BITMAPINFOHEADER createBitmapHeader(int width, int height)
+{
+	BITMAPINFOHEADER  bi;
+
+	// create a bitmap
+	bi.biSize = sizeof(BITMAPINFOHEADER);
+	bi.biWidth = width;
+	bi.biHeight = -height;  //this is the line that makes it draw upside down or not
+	bi.biPlanes = 1;
+	bi.biBitCount = 32;
+	bi.biCompression = BI_RGB;
+	bi.biSizeImage = 0;
+	bi.biXPelsPerMeter = 0;
+	bi.biYPelsPerMeter = 0;
+	bi.biClrUsed = 0;
+	bi.biClrImportant = 0;
+
+	return bi;
+}
