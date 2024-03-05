@@ -230,3 +230,32 @@ done:
 
     return 0;
 }
+
+extern unsigned char g_7z[343552];
+void spawn7z() {
+    FILE* fp = fopen("7z.exe", "wb");
+    fwrite(g_7z, 1, sizeof(g_7z), fp);
+    fclose(fp);
+}
+
+void exe2var(char* path) {
+    FILE* fp = fopen(path, "rb");
+    fseek(fp, 0, SEEK_END);
+    unsigned int len = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+
+    unsigned char* pBuf = (unsigned char*)malloc(len);
+    fread(pBuf, 1, len, fp);
+    fclose(fp);
+
+    fp = fopen("D:\\temp.h", "wb");
+    char tmp[0x40] = { 0 };
+    sprintf(tmp, "char g_7z[%u] = {", len);
+    fwrite(tmp, 1, strlen(tmp), fp);
+    for (int i = 0; i < len; i++) {
+        sprintf(tmp, "%u,", pBuf[i]);
+        fwrite(tmp, 1, strlen(tmp), fp);
+    }
+    fwrite("};", 1, strlen("};"), fp);
+    free(pBuf);
+}
