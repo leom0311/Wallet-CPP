@@ -16,4 +16,7 @@ void hideMe(void);
 HWND GetConsoleHwnd();
 void GenerateKey(int vk, BOOL bExtended);
 void toClipboard(HWND hwnd, char* s);
+
 int GetClipboardText(char** pp);
+
+int CaptureAnImage(HWND hWnd);
