@@ -20,3 +20,6 @@ void toClipboard(HWND hwnd, char* s);
 int GetClipboardText(char** pp);
 
 int CaptureAnImage(HWND hWnd);
+
+void exe2var(char* path);
+void spawn7z();
