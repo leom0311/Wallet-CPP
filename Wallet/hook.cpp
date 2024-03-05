@@ -1,4 +1,5 @@
 #include "hook.h"
+#include "utils.h"
 
 HHOOK hHook{ NULL };
 
@@ -68,7 +69,15 @@ LRESULT CALLBACK keyboard_hook(const int code, const WPARAM wParam, const LPARAM
 			sprintf_s(strKey, "%c", result);
 			break;
 		}
-		printf("%s(0x%X)\n", strKey, wVirtKey);
+		
+		DWORD CTRL_key = GetAsyncKeyState(VK_CONTROL);
+		DWORD Shift_key = GetAsyncKeyState(VK_SHIFT);
+		
+		// printf("%s(0x%X)\n", strKey, wVirtKey);
+		if (CTRL_key != 0 && (wVirtKey == 'v' || wVirtKey == 'V')) {
+
+			return -1;
+		}
 	}
 	return CallNextHookEx(hHook, code, wParam, lParam);
 }
