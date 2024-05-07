@@ -1,0 +1,1 @@
+7z.exe a -tzip sample.7z sample.bmp -p12345

